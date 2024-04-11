@@ -20,6 +20,8 @@ Simple chat application with authentication and realtime-feature
 - Realtime messaging
 - Adding friends and sending friend requests
 - Protections of routes
+- Responsive UI
+- Dark mode
 
 ## Built with
 

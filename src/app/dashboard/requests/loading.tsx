@@ -8,18 +8,22 @@ const loading = () => {
 				className="mb-4"
 				height={60}
 				width={500}
+				baseColor="#5e6669"
 			/>
 			<Skeleton
 				height={50}
 				width={350}
+				baseColor="#5e6669"
 			/>
 			<Skeleton
 				height={50}
 				width={350}
+				baseColor="#5e6669"
 			/>
 			<Skeleton
 				height={50}
 				width={350}
+				baseColor="#5e6669"
 			/>
 		</div>
 	);

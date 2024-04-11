@@ -33,7 +33,7 @@ const page = async () => {
 					return (
 						<div
 							key={nanoid()}
-							className="relative bg-gray-50 border-border p-3 rounded-md"
+							className="relative bg-secondary border-border p-3 my-2 rounded-md"
 						>
 							<div className="absolute right-4 inset-y-4 flex items-center">
 								<ChevronRight className="size-7 text-muted-foreground" />

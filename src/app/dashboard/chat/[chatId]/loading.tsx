@@ -10,11 +10,12 @@ const loading: FC<loadingProps> = ({}) => {
 				className="mb-4"
 				height={40}
 				width={400}
+				baseColor="#5e6669"
 			/>
 
 			<div className="flex-1 max-h-full overflow-y-scroll w-full">
 				<div className="flex flex-col flex-auto h-full p-6">
-					<div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-50 h-full p-4">
+					<div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl h-full p-4">
 						<div className="flex flex-col h-full overflow-x-auto mb-4">
 							<div className="flex flex-col h-full">
 								<div className="grid grid-cols-12 gap-y-2">
@@ -25,14 +26,16 @@ const loading: FC<loadingProps> = ({}) => {
 													width={40}
 													height={40}
 													borderRadius={999}
+													baseColor="#5e6669"
 												/>
 											</div>
 
-											<div className="relative mr-3 text-sm bg-indigo-100 text-accent-foreground py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative mr-3 text-sm text-accent-foreground py-2 px-4 border rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}
 													height={20}
+													baseColor="#5e6669"
 												/>
 											</div>
 										</div>
@@ -45,14 +48,16 @@ const loading: FC<loadingProps> = ({}) => {
 													width={40}
 													height={40}
 													borderRadius={999}
+													baseColor="#5e6669"
 												/>
 											</div>
 
-											<div className="relative mr-3 text-sm bg-indigo-100 text-accent-foreground py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative mr-3 text-sm text-accent-foreground py-2 px-4 border rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}
 													height={20}
+													baseColor="#5e6669"
 												/>
 											</div>
 										</div>
@@ -65,14 +70,16 @@ const loading: FC<loadingProps> = ({}) => {
 													width={40}
 													height={40}
 													borderRadius={999}
+													baseColor="#5e6669"
 												/>
 											</div>
 
-											<div className="relative ml-3 text-sm bg-white py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative ml-3 text-sm py-2 px-4 border rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}
 													height={20}
+													baseColor="#5e6669"
 												/>
 											</div>
 										</div>
@@ -85,14 +92,16 @@ const loading: FC<loadingProps> = ({}) => {
 													width={40}
 													height={40}
 													borderRadius={999}
+													baseColor="#5e6669"
 												/>
 											</div>
 
-											<div className="relative mr-3 text-sm bg-indigo-100 text-accent-foreground py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative mr-3 text-sm text-accent-foreground py-2 px-4 border rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}
 													height={20}
+													baseColor="#5e6669"
 												/>
 											</div>
 										</div>
@@ -105,14 +114,16 @@ const loading: FC<loadingProps> = ({}) => {
 													width={40}
 													height={40}
 													borderRadius={999}
+													baseColor="#5e6669"
 												/>
 											</div>
 
-											<div className="relative ml-3 text-sm bg-white py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative ml-3 text-sm py-2 px-4 border rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}
 													height={20}
+													baseColor="#5e6669"
 												/>
 											</div>
 										</div>

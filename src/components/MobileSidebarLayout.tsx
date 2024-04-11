@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, Fragment, useEffect, useState } from "react";
+import ChangeThemeButton from "./ChangeThemeButton";
 import ChatsList from "./ChatsList";
 import FriendRequestSidebar from "./FriendRequestsSidebar";
 import SignOutButton from "./SignoutButton";
@@ -28,7 +29,7 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 	}, [pathname]);
 
 	return (
-		<div className="fixed bg-zinc-50 p-4 border-b top-0 py-2 inset-x-0">
+		<div className="fixed bg-card p-4 border-b top-0 py-2 inset-x-0">
 			<div className="flex w-full justify-between items-center">
 				<Link
 					href={"/dashboard"}
@@ -36,7 +37,7 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 				>
 					<svg
 						viewBox="0 0 2000 2000"
-						className="h-6 w-auto text-primary"
+						className="h-8 w-auto text-primary"
 					>
 						<path
 							fill="currentColor"
@@ -52,6 +53,7 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 					Menu <Menu className="size-6" />
 				</Button>
 			</div>
+
 			<Transition.Root
 				show={open}
 				as={Fragment}
@@ -82,7 +84,9 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 													<Dialog.Title className="text-base font-semibold leading-6 text-foreground">
 														Dashboard
 													</Dialog.Title>
-													<div className="ml-3 flex h-7 items-center">
+													<div className="ml-3 flex h-7 items-center gap-4">
+														<ChangeThemeButton />
+
 														<button
 															type="button"
 															className="rounded-md bg-background text-muted-foreground hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
@@ -102,7 +106,7 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 												{/* Your content */}
 
 												{friends.length > 0 ? (
-													<div className="text-xs font-semibold leading-6 text-gray-400">
+													<div className="text-xs font-semibold leading-6 text-muted-foreground">
 														Your chats
 													</div>
 												) : null}
@@ -129,9 +133,9 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 																<li>
 																	<Link
 																		href="/dashboard/add"
-																		className="flex hover:bg-gray-50 hover:text-primary group gap-x-3 rounded-md p-2 text-sm font-semibold"
+																		className="flex hover:bg-secondary hover:text-primary group gap-x-3 rounded-md p-2 text-sm font-semibold"
 																	>
-																		<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-background">
+																		<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary">
 																			<UserPlus className="size-4" />
 																		</span>
 
@@ -149,7 +153,7 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 
 														<li className="-mx-6 mt-auto flex items-center">
 															<div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-base font-semibold leading-6 text-foreground">
-																<div className="relative size-10 bg-gray-50">
+																<div className="relative size-10 bg-transparent">
 																	<Image
 																		fill
 																		alt="Profile image"

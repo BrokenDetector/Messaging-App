@@ -87,7 +87,7 @@ const ChatsList: FC<ChatsListProps> = ({ sessionId, friends }) => {
 					<li key={nanoid()}>
 						<a
 							href={`/dashboard/chat/${chatHrefConstructor(sessionId, friend.id)}`}
-							className="hover:text-primary hover:bg-gray-50 text-base rounded-md font-semibold group flex items-center gap-x-3 p-2 leading-6"
+							className="hover:text-primary hover:bg-secondary text-base rounded-md font-semibold group flex items-center gap-x-3 p-2 leading-6"
 						>
 							<div className="relative size-8">
 								<Image

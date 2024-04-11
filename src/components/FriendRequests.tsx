@@ -69,7 +69,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({ incomingFriendRequests, sessi
 							className="flex gap-4 items-center w-fit p-4 rounded-lg"
 							key={nanoid()}
 						>
-							<UserPlus className="text-black" />
+							<UserPlus />
 							<h3 className="font-medium text-lg">{request.senderEmail}</h3>
 							<Button
 								disabled={isPending}

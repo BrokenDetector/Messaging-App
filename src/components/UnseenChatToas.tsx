@@ -23,7 +23,7 @@ const UnseenChatToast: FC<UnseenChatToastProps> = ({
 	return (
 		<div
 			className={cn(
-				"max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5",
+				"max-w-md w-full bg-secondary shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-secondary ring-opacity-5",
 				{
 					"animate-enter": t.visible,
 					"animate-leave": !t.visible,
@@ -56,10 +56,10 @@ const UnseenChatToast: FC<UnseenChatToastProps> = ({
 				</div>
 			</a>
 
-			<div className="flex border-l border-gray-200">
+			<div className="flex border-l">
 				<button
 					onClick={() => toast.dismiss(t.id)}
-					className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+					className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-primary hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
 				>
 					Close
 				</button>

@@ -56,13 +56,13 @@ const Messages: FC<MessagesProps> = ({ initialMessages, sessionId, sessionImg, c
 								<span
 									className={cn("px-4 py-2 rounded-lg inline-block", {
 										"bg-primary text-primary-foreground": isCurrentUser,
-										"bg-gray-200": !isCurrentUser,
+										"bg-muted": !isCurrentUser,
 										"rounded-br-none": !hasNextMessageFromSameUser && isCurrentUser,
 										"rounded-bl-none": !hasNextMessageFromSameUser && !isCurrentUser,
 									})}
 								>
 									{message.text}{" "}
-									<span className="ml-2  text-xs text-gray-400">
+									<span className="ml-2  text-xs text-muted-foreground">
 										{format(message.timestamp!, "HH:MM")}
 									</span>
 								</span>

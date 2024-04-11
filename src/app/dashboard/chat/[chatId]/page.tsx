@@ -14,11 +14,8 @@ interface pageProps {
 const page: FC<pageProps> = async ({ params }) => {
 	const { chatId } = params;
 
-	const notReversedInitialMessages = (await getChatMessages(chatId)) as
-		| Message[];
-	const initialMessages = notReversedInitialMessages
-		? notReversedInitialMessages.reverse()
-		: [];
+	const notReversedInitialMessages = (await getChatMessages(chatId)) as Message[];
+	const initialMessages = notReversedInitialMessages ? notReversedInitialMessages.reverse() : [];
 
 	const session = await getServerSession(authOptions);
 	const currenUser = session?.user;
@@ -46,14 +43,10 @@ const page: FC<pageProps> = async ({ params }) => {
 					)}
 					<div className="flex flex-col leading-tight">
 						<div className="text-xl flex items-center">
-							<span className=" mr-2 font-semibold">
-								{chatPartner?.name}
-							</span>
+							<span className=" mr-2 font-semibold">{chatPartner?.name}</span>
 						</div>
 
-						<span className="text-sm text-gray-600">
-							{chatPartner?.email}
-						</span>
+						<span className="text-sm text-muted-foreground">{chatPartner?.email}</span>
 					</div>
 				</div>
 			</div>
