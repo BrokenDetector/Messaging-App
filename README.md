@@ -6,7 +6,7 @@ Simple chat application with authentication and realtime-feature
 
 ![dashboard_page](/screenshots/dashboard.png)
 
-## Char page
+## Chat page
 
 ![chat_page](/screenshots/chat.png)
 
@@ -22,6 +22,7 @@ Simple chat application with authentication and realtime-feature
 - Protections of routes
 - Responsive UI
 - Dark mode
+- Global chat
 
 ## Built with
 

@@ -11,12 +11,12 @@ import toast from "react-hot-toast";
 import { Button } from "./ui/button";
 
 interface FriendRequestsProps {
-	incomingFriendRequests: incomingFriendRequest[] | [];
+	incomingFriendRequests: incomingFriendRequest[];
 	sessionId: string;
 }
 
 const FriendRequests: FC<FriendRequestsProps> = ({ incomingFriendRequests, sessionId }) => {
-	const [friendRequests, setFriendRequests] = useState<incomingFriendRequest[] | []>(incomingFriendRequests);
+	const [friendRequests, setFriendRequests] = useState<incomingFriendRequest[]>(incomingFriendRequests);
 	const [isPending, startPending] = useTransition();
 	const router = useRouter();
 
