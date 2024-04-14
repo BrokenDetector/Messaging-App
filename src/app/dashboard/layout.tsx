@@ -17,7 +17,7 @@ interface layoutProps {
 
 const layout: FC<layoutProps> = async ({ children }) => {
 	const session = await getServerSession(authOptions);
-	const friends = (await getUserFriends(session?.user.id!)) as User[] | [];
+	const friends = (await getUserFriends(session?.user.id!)) as User[];
 	const initialUnseenRequestCount = await getUserFriendRequests(session?.user.id!);
 
 	return (
@@ -56,9 +56,7 @@ const layout: FC<layoutProps> = async ({ children }) => {
 					>
 						<li>
 							<div>
-								{friends.length > 0 ? (
-									<div className="text-xs font-semibold leading-6 text-gray-400">Your chats</div>
-								) : null}
+								<div className="text-xs font-semibold leading-6 text-muted-foreground">Your chats</div>
 
 								<ul
 									role="list"

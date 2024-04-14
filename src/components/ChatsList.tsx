@@ -11,7 +11,7 @@ import UnseenChatToast from "./UnseenChatToas";
 
 interface ChatsListProps {
 	sessionId: string;
-	friends: User[] | [];
+	friends: User[];
 }
 
 interface ExtendedMessage extends Message {
@@ -78,36 +78,49 @@ const ChatsList: FC<ChatsListProps> = ({ sessionId, friends }) => {
 			role="list"
 			className="space-y-1 overflow-y-auto -mx-2 max-h-[25rem]"
 		>
-			{activeChats.sort().map((friend) => {
-				const unseenMessagesCount = unseenMessages.filter((unseenMessage) => {
-					return unseenMessage.senderId === friend.id;
-				}).length;
+			<li>
+				<a
+					href="/dashboard/chat/global"
+					className="hover:text-primary hover:bg-secondary text-base rounded-md font-semibold group flex items-center gap-x-3 p-2 leading-6"
+				>
+					<div className="size-8 text-2xl">🌐</div>
+					<h1>Global chat</h1>
+				</a>
+			</li>
+			{activeChats.length > 0 ? (
+				<>
+					{activeChats.sort().map((friend) => {
+						const unseenMessagesCount = unseenMessages.filter((unseenMessage) => {
+							return unseenMessage.senderId === friend.id;
+						}).length;
 
-				return (
-					<li key={nanoid()}>
-						<a
-							href={`/dashboard/chat/${chatHrefConstructor(sessionId, friend.id)}`}
-							className="hover:text-primary hover:bg-secondary text-base rounded-md font-semibold group flex items-center gap-x-3 p-2 leading-6"
-						>
-							<div className="relative size-8">
-								<Image
-									fill
-									className="rounded-full"
-									alt={`${friend.name} profile image`}
-									src={friend.image}
-									sizes="32"
-								/>
-							</div>
-							<h1>{friend.name}</h1>
-							{unseenMessagesCount > 0 ? (
-								<div className="bg-primary font-medium text-xs text-primary-foreground size-4 rounded-full flex justify-center items-center">
-									{unseenMessagesCount}
-								</div>
-							) : null}
-						</a>
-					</li>
-				);
-			})}
+						return (
+							<li key={nanoid()}>
+								<a
+									href={`/dashboard/chat/${chatHrefConstructor(sessionId, friend.id)}`}
+									className="hover:text-primary hover:bg-secondary text-base rounded-md font-semibold group flex items-center gap-x-3 p-2 leading-6"
+								>
+									<div className="relative size-8">
+										<Image
+											fill
+											className="rounded-full"
+											alt={`${friend.name} profile image`}
+											src={friend.image}
+											sizes="32"
+										/>
+									</div>
+									<h1>{friend.name}</h1>
+									{unseenMessagesCount > 0 ? (
+										<div className="bg-primary font-medium text-xs text-primary-foreground size-4 rounded-full flex justify-center items-center">
+											{unseenMessagesCount}
+										</div>
+									) : null}
+								</a>
+							</li>
+						);
+					})}
+				</>
+			) : null}
 		</ul>
 	);
 };

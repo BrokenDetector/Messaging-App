@@ -7,21 +7,24 @@ import { nanoid } from "nanoid";
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 
-interface MessagesProps {
-	initialMessages: Message[];
+interface ExtendedMessage extends Message {
+	sender: User;
+}
+
+interface GlobalMessagesProps {
+	initialMessages: ExtendedMessage[];
 	sessionId: string;
 	sessionImg: string;
-	chatPartner: User;
 	chatId: string;
 }
 
-const Messages: FC<MessagesProps> = ({ initialMessages, sessionId, sessionImg, chatPartner, chatId }) => {
-	const [messages, setMessages] = useState<Message[]>(initialMessages);
+const GlobalMessages: FC<GlobalMessagesProps> = ({ initialMessages, sessionId, sessionImg, chatId }) => {
+	const [messages, setMessages] = useState<ExtendedMessage[]>(initialMessages);
 
 	useEffect(() => {
 		pusherClient.subscribe(`chat_${chatId}`);
 
-		const messageHandler = (message: Message) => {
+		const messageHandler = (message: ExtendedMessage) => {
 			setMessages((prev) => [message, ...prev]);
 		};
 
@@ -63,13 +66,15 @@ const Messages: FC<MessagesProps> = ({ initialMessages, sessionId, sessionImg, c
 									"rounded-bl-none": !hasNextMessageFromSameUser && !isCurrentUser,
 								})}
 							>
-								<p
-									className={cn("font-semibold", {
-										hidden: shouldntRenderName || isCurrentUser,
-									})}
-								>
-									{chatPartner.name}
-								</p>
+								{message.senderId !== sessionId && (
+									<p
+										className={cn("font-semibold", {
+											hidden: shouldntRenderName || isCurrentUser,
+										})}
+									>
+										{message.sender.name}
+									</p>
+								)}
 								<span className="inline-block ml-2">
 									{message.text}
 									<span className="ml-3  text-xs text-muted-foreground">
@@ -90,7 +95,7 @@ const Messages: FC<MessagesProps> = ({ initialMessages, sessionId, sessionImg, c
 								fill
 								className="rounded-full"
 								alt="Profile picture"
-								src={isCurrentUser ? sessionImg : chatPartner.image}
+								src={isCurrentUser ? sessionImg : message.sender.image}
 								sizes="28"
 							/>
 						</div>
@@ -101,4 +106,4 @@ const Messages: FC<MessagesProps> = ({ initialMessages, sessionId, sessionImg, c
 	);
 };
 
-export default Messages;
+export default GlobalMessages;

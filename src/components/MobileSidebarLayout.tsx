@@ -20,8 +20,7 @@ interface MobileSidebarLayoutProps {
 }
 
 const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, unseenRequestCount }) => {
-	const [open, setOpen] = useState<boolean>(false);
-
+	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
 
 	useEffect(() => {
@@ -105,11 +104,9 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 											<div className="relative mt-6 flex-1 px-4 sm:px-6">
 												{/* Your content */}
 
-												{friends.length > 0 ? (
-													<div className="text-xs font-semibold leading-6 text-muted-foreground">
-														Your chats
-													</div>
-												) : null}
+												<div className="text-xs font-semibold leading-6 text-muted-foreground">
+													Your chats
+												</div>
 												<nav className="flex flex-col">
 													<ul
 														role="list"

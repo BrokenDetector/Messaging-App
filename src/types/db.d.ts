@@ -17,7 +17,6 @@ interface User {
 interface Message {
 	id: string;
 	senderId: string;
-	receiverId: string;
 	chatId: string;
 	text: string;
 	timestamp: string | null;
