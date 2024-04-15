@@ -7,6 +7,7 @@ import { chats, messages } from "@/lib/db/schema";
 import { pusherServer } from "@/lib/pusher";
 import { sendMessageSchema } from "@/lib/validations/schemas";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 export const sendGlobalMessage = async (input: string, id: string) => {
 	const session = await getServerSession(authOptions);
@@ -33,6 +34,8 @@ export const sendGlobalMessage = async (input: string, id: string) => {
 
 	// Update messages on client
 	await pusherServer.trigger(`chat_${chatId}`, "incoming_message", { ...newMessage[0], sender: currentUser });
+
+	revalidatePath("/dashboard/chat/global");
 
 	return { success: "success" };
 };

@@ -8,9 +8,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, Fragment, useEffect, useState } from "react";
 import ChangeThemeButton from "./ChangeThemeButton";
-import ChatsList from "./ChatsList";
 import FriendRequestSidebar from "./FriendRequestsSidebar";
 import SignOutButton from "./SignoutButton";
+import ChatsList from "./chats/ChatsList";
 import { Button, buttonVariants } from "./ui/button";
 
 interface MobileSidebarLayoutProps {

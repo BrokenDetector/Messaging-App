@@ -8,7 +8,8 @@ export const getUserByEmail = async (email: string) => {
 			where: eq(users.email, email),
 		});
 		return user;
-	} catch {
+	} catch (error) {
+		console.log(error);
 		return null;
 	}
 };
@@ -19,7 +20,8 @@ export const getUserById = async (id: string) => {
 			where: eq(users.id, id),
 		});
 		return user;
-	} catch {
+	} catch (error) {
+		console.log(error);
 		return null;
 	}
 };
@@ -42,7 +44,8 @@ export const getUserFriends = async (id: string) => {
 		} else {
 			return [];
 		}
-	} catch {
+	} catch (error) {
+		console.log(error);
 		return [];
 	}
 };
@@ -53,18 +56,27 @@ export const getUserFriendRequests = async (id: string) => {
 			where: eq(friendRequests.receiverId, id),
 		});
 		return friendRequestsList;
-	} catch {
+	} catch (error) {
+		console.log(error);
 		return [];
 	}
 };
 
 export const getChatMessages = async (chatId: string) => {
 	try {
-		const chat = await db.query.chats.findFirst({
-			where: eq(chats.id, chatId),
-			with: { messages: true },
-		});
-		return chat?.messages;
+		if (chatId === "global") {
+			const chat = await db.query.chats.findFirst({
+				where: eq(chats.id, chatId),
+				with: { messages: { with: { sender: true } } },
+			});
+			return chat?.messages;
+		} else {
+			const chat = await db.query.chats.findFirst({
+				where: eq(chats.id, chatId),
+				with: { messages: true },
+			});
+			return chat?.messages;
+		}
 	} catch {
 		return [];
 	}
