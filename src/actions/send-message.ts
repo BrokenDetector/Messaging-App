@@ -6,6 +6,7 @@ import { chats, messages } from "@/lib/db/schema";
 import { pusherServer } from "@/lib/pusher";
 import { sendMessageSchema } from "@/lib/validations/schemas";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 export const sendMessage = async (input: string, id: string) => {
 	const session = await getServerSession(authOptions);
@@ -26,20 +27,13 @@ export const sendMessage = async (input: string, id: string) => {
 	const [userId1, userId2] = chatId.split("--");
 	const friendId = session.user.id === userId1 ? userId2 : userId1;
 
-		// create chat if doesnt exist
+	// create chat if doesnt exist
 	await db.insert(chats).values({ id: chatId }).onConflictDoNothing();
-	const newMessage = await db
-		.insert(messages)
-		.values({ chatId, text, senderId: session.user.id })
-		.returning();
+	const newMessage = await db.insert(messages).values({ chatId, text, senderId: session.user.id }).returning();
 
 	await Promise.all([
 		// notify all connected chat room clients
-		pusherServer.trigger(
-			`chat_${chatId}`,
-			"incoming_message",
-			newMessage[0]
-		),
+		pusherServer.trigger(`chat_${chatId}`, "incoming_message", newMessage[0]),
 
 		pusherServer.trigger(`${friendId}_chats`, "new_message", {
 			...newMessage[0],
@@ -47,5 +41,8 @@ export const sendMessage = async (input: string, id: string) => {
 			senderName: session.user.name,
 		}),
 	]);
+
+	revalidatePath(`/dashboard/chat/${chatId}`);
+
 	return { success: "success" };
 };

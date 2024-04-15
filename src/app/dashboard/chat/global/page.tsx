@@ -1,6 +1,6 @@
-import GlobalChatInput from "@/components/GlobalChatInput";
-import GlobalMessages from "@/components/GlobalMessages";
-import { getChatMessages, getUserById } from "@/helpers/get-db";
+import GlobalChatInput from "@/components/chats/GlobalChatInput";
+import GlobalMessages from "@/components/chats/GlobalMessages";
+import { getChatMessages } from "@/helpers/get-db";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
@@ -13,12 +13,6 @@ const page = async () => {
 
 	const notReversedInitialMessages = await getChatMessages(chatId);
 	const initialMessages = notReversedInitialMessages ? notReversedInitialMessages.reverse() : [];
-
-	const messageWithSenderInfo = initialMessages.map(async (message) => {
-		const sender = await getUserById(message.senderId);
-		return { ...message, sender };
-	});
-	const messagesWithSenderInfo = (await Promise.all(messageWithSenderInfo)) as ExtendedMessage[];
 
 	const session = await getServerSession(authOptions);
 	const currenUser = session?.user;
@@ -36,7 +30,7 @@ const page = async () => {
 
 			<GlobalMessages
 				chatId={chatId}
-				initialMessages={messagesWithSenderInfo}
+				initialMessages={initialMessages as ExtendedMessage[]}
 				sessionId={currenUser?.id!}
 				sessionImg={currenUser?.image!}
 			/>

@@ -85,4 +85,12 @@ export const messagesRelations = relations(messages, ({ one }) => ({
 		fields: [messages.chatId],
 		references: [chats.id],
 	}),
+	sender: one(users, {
+		fields: [messages.senderId],
+		references: [users.id],
+	}),
+}));
+
+export const usersRelations = relations(users, ({ many }) => ({
+	messages: many(messages),
 }));

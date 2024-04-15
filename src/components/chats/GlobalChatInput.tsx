@@ -4,7 +4,7 @@ import { sendGlobalMessage } from "@/actions/send-global-message";
 import { FC, useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import TextareaAutosize from "react-textarea-autosize";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 interface GlobalChatInputProps {
 	chatId: string;

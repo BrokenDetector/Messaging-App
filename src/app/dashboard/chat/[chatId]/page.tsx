@@ -1,5 +1,5 @@
-import ChatInput from "@/components/ChatInput";
-import Messages from "@/components/Messages";
+import ChatInput from "@/components/chats/ChatInput";
+import Messages from "@/components/chats/Messages";
 import { getChatMessages, getUserById } from "@/helpers/get-db";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";

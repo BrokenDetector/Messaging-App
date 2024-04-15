@@ -4,10 +4,11 @@ import { pusherClient } from "@/lib/pusher";
 import { chatHrefConstructor } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import UnseenChatToast from "./UnseenChatToas";
+import UnseenChatToast from "../UnseenChatToas";
 
 interface ChatsListProps {
 	sessionId: string;
@@ -79,13 +80,13 @@ const ChatsList: FC<ChatsListProps> = ({ sessionId, friends }) => {
 			className="space-y-1 overflow-y-auto -mx-2 max-h-[25rem]"
 		>
 			<li>
-				<a
+				<Link
 					href="/dashboard/chat/global"
 					className="hover:text-primary hover:bg-secondary text-base rounded-md font-semibold group flex items-center gap-x-3 p-2 leading-6"
 				>
 					<div className="size-8 text-2xl">🌐</div>
 					<h1>Global chat</h1>
-				</a>
+				</Link>
 			</li>
 			{activeChats.length > 0 ? (
 				<>

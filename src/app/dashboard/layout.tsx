@@ -1,5 +1,5 @@
 import ChangeThemeButton from "@/components/ChangeThemeButton";
-import ChatsList from "@/components/ChatsList";
+import ChatsList from "@/components/chats/ChatsList";
 import FriendRequestSidebar from "@/components/FriendRequestsSidebar";
 import MobileSidebarLayout from "@/components/MobileSidebarLayout";
 import SignOutButton from "@/components/SignoutButton";
