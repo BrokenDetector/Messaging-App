@@ -18,6 +18,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
 
 	const submit = async () => {
 		if (!input) return;
+		if (isPending) return;
 
 		startPending(async () => {
 			try {

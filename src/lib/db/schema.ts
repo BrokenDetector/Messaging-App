@@ -76,6 +76,25 @@ export const messages = pgTable("message", {
 	timestamp: timestamp("timestamp", { mode: "string" }).defaultNow(),
 });
 
+export const groups = pgTable("groups", {
+	groupName: text("groupName").unique().primaryKey(),
+	members: uuid("members")
+		.notNull()
+		.references(() => users.id)
+		.array()
+		.default("{}" as unknown as []),
+});
+
+export const groupInvites = pgTable("groupInvites", {
+	id: uuid("id").defaultRandom().primaryKey(),
+	groupName: text("groupName").references(() => groups.groupName, { onDelete: "cascade" }),
+	receiverId: uuid("receiverId")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+});
+
+// RELATIONS
+
 export const chatsRelations = relations(chats, ({ many }) => ({
 	messages: many(messages),
 }));

@@ -1,9 +1,4 @@
-import {
-	DEFAULT_LOGIN_REDIRECT,
-	apiAuthPrefix,
-	authRoutes,
-	publicRoutes,
-} from "@/lib/utils";
+import { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes } from "@/lib/utils";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,7 +7,6 @@ export async function middleware(req: NextRequest) {
 	const isLoggedIn = await getToken({ req });
 
 	const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
-	const isPublicRoute = publicRoutes.includes(pathname);
 	const isAuthRoute = authRoutes.includes(pathname);
 
 	if (isApiAuthRoute) {
@@ -21,14 +15,12 @@ export async function middleware(req: NextRequest) {
 
 	if (isAuthRoute) {
 		if (isLoggedIn) {
-			return NextResponse.redirect(
-				new URL(DEFAULT_LOGIN_REDIRECT, req.url)
-			);
+			return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
 		}
 		return NextResponse.next();
 	}
 
-	if (!isLoggedIn && !isPublicRoute) {
+	if (!isLoggedIn) {
 		let callbackUrl = pathname;
 		if (req.nextUrl.search) {
 			callbackUrl += req.nextUrl.search;
@@ -36,9 +28,7 @@ export async function middleware(req: NextRequest) {
 
 		const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
-		return NextResponse.redirect(
-			new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, req.url)
-		);
+		return NextResponse.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, req.url));
 	}
 
 	if (pathname === "/") {

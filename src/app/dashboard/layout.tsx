@@ -1,11 +1,13 @@
 import ChangeThemeButton from "@/components/ChangeThemeButton";
 import ChatsList from "@/components/chats/ChatsList";
 import FriendRequestSidebar from "@/components/FriendRequestsSidebar";
+import GroupList from "@/components/groups/GroupList";
+import GroupInvitesSidebar from "@/components/groups/GroupRequestsSidebar";
 import MobileSidebarLayout from "@/components/MobileSidebarLayout";
 import SignOutButton from "@/components/SignoutButton";
-import { getUserFriendRequests, getUserFriends } from "@/helpers/get-db";
+import { getUserFriendRequests, getUserFriends, getUserGroupInvites, getUserGroups } from "@/helpers/get-db";
 import { authOptions } from "@/lib/auth";
-import { UserPlus } from "lucide-react";
+import { SquarePlus, UserPlus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +21,8 @@ const layout: FC<layoutProps> = async ({ children }) => {
 	const session = await getServerSession(authOptions);
 	const friends = (await getUserFriends(session?.user.id!)) as User[];
 	const initialUnseenRequestCount = await getUserFriendRequests(session?.user.id!);
+	const groups = (await getUserGroups(session?.user.id!)) as Group[];
+	const initialUnseenGroupInvites = await getUserGroupInvites(session?.user.id!);
 
 	return (
 		<div className="w-full h-screen flex">
@@ -27,6 +31,8 @@ const layout: FC<layoutProps> = async ({ children }) => {
 					friends={friends}
 					session={session!}
 					unseenRequestCount={initialUnseenRequestCount.length}
+					unseenInvitesCount={initialUnseenGroupInvites.length}
+					groups={groups}
 				/>
 			</div>
 
@@ -55,21 +61,31 @@ const layout: FC<layoutProps> = async ({ children }) => {
 						className="flex flex-col gap-y-7 flex-1"
 					>
 						<li>
-							<div>
-								<div className="text-xs font-semibold leading-6 text-muted-foreground">Your chats</div>
+							<h1 className="text-xs font-semibold leading-6 text-muted-foreground">Your chats</h1>
 
-								<ul
-									role="list"
-									className="mx-2 mt-2 space-y-1"
-								>
-									<li>
-										<ChatsList
-											sessionId={session?.user.id!}
-											friends={friends}
-										/>
-									</li>
-								</ul>
-							</div>
+							<ul
+								role="list"
+								className="mx-2 mt-2 space-y-1"
+							>
+								<li>
+									<ChatsList
+										sessionId={session?.user.id!}
+										friends={friends}
+									/>
+								</li>
+							</ul>
+						</li>
+
+						<li>
+							<ul
+								role="list"
+								className="mx-2 mt-2 space-y-1"
+							>
+								<GroupList
+									groups={groups}
+									sessionId={session?.user.id!}
+								/>
+							</ul>
 						</li>
 
 						<li>
@@ -80,7 +96,7 @@ const layout: FC<layoutProps> = async ({ children }) => {
 							>
 								<li>
 									<Link
-										href="/dashboard/add"
+										href="/dashboard/friend/add"
 										className="flex hover:bg-secondary hover:text-primary group gap-3 rounded-md p-2 text-sm font-semibold"
 									>
 										<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary	">
@@ -94,6 +110,42 @@ const layout: FC<layoutProps> = async ({ children }) => {
 									<FriendRequestSidebar
 										sessionId={session?.user.id!}
 										initialUnseenRequestCount={initialUnseenRequestCount.length}
+									/>
+								</li>
+							</ul>
+
+							<ul
+								role="list"
+								className="-mx-2 mt-2 space-y-1"
+							>
+								<li>
+									<Link
+										href="/dashboard/group/create"
+										className="flex hover:bg-secondary hover:text-primary group gap-3 rounded-md p-2 text-sm font-semibold"
+									>
+										<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary	">
+											<SquarePlus className="size-4" />
+										</span>
+
+										<span className="truncate">Create group</span>
+									</Link>
+								</li>
+								<li>
+									<Link
+										href="/dashboard/group/invite"
+										className="flex hover:bg-secondary hover:text-primary group gap-3 rounded-md p-2 text-sm font-semibold"
+									>
+										<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary	">
+											<UserPlus className="size-4" />
+										</span>
+
+										<span className="truncate">Invite to join group</span>
+									</Link>
+								</li>
+								<li>
+									<GroupInvitesSidebar
+										initialUnseenInvitesCount={initialUnseenGroupInvites.length}
+										sessionId={session?.user.id!}
 									/>
 								</li>
 							</ul>

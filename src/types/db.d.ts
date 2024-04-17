@@ -26,3 +26,14 @@ interface Chat {
 	id: string;
 	messages: Message[];
 }
+
+interface incomingGroupRequest {
+	id?: string;
+	groupName: string;
+	receiverId?: string;
+}
+
+interface Group {
+	groupName: string;
+	members: string[];
+}
