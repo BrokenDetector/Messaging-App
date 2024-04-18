@@ -8,7 +8,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import UnseenChatToast from "../UnseenChatToas";
+import UnseenChatToast from "../UnseenChatToast";
 
 interface ChatsListProps {
 	sessionId: string;
@@ -92,12 +92,12 @@ const ChatsList: FC<ChatsListProps> = ({ sessionId, friends }) => {
 				<>
 					{activeChats.sort().map((friend) => {
 						const unseenMessagesCount = unseenMessages.filter((unseenMessage) => {
-							return unseenMessage.senderId === friend.id;
+							return unseenMessage.senderId === friend.id
 						}).length;
 
 						return (
 							<li key={nanoid()}>
-								<a
+								<Link
 									href={`/dashboard/chat/${chatHrefConstructor(sessionId, friend.id)}`}
 									className="hover:text-primary hover:bg-secondary text-base rounded-md font-semibold group flex items-center gap-x-3 p-2 leading-6"
 								>
@@ -116,7 +116,7 @@ const ChatsList: FC<ChatsListProps> = ({ sessionId, friends }) => {
 											{unseenMessagesCount}
 										</div>
 									) : null}
-								</a>
+								</Link>
 							</li>
 						);
 					})}

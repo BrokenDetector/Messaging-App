@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
-import { chats, friendRequests, friends, users } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { chats, friendRequests, friends, groupInvites, groups, users } from "@/lib/db/schema";
+import { arrayContains, eq } from "drizzle-orm";
 
 export const getUserByEmail = async (email: string) => {
 	try {
@@ -64,20 +64,48 @@ export const getUserFriendRequests = async (id: string) => {
 
 export const getChatMessages = async (chatId: string) => {
 	try {
-		if (chatId === "global") {
-			const chat = await db.query.chats.findFirst({
-				where: eq(chats.id, chatId),
-				with: { messages: { with: { sender: true } } },
-			});
-			return chat?.messages;
-		} else {
-			const chat = await db.query.chats.findFirst({
-				where: eq(chats.id, chatId),
-				with: { messages: true },
-			});
-			return chat?.messages;
-		}
+		const chat = await db.query.chats.findFirst({
+			where: eq(chats.id, chatId),
+			with: { messages: { with: { sender: true } } },
+		});
+		return chat?.messages;
 	} catch {
 		return [];
+	}
+};
+
+export const getUserGroupInvites = async (id: string) => {
+	try {
+		const invites = await db.query.groupInvites.findMany({
+			where: eq(groupInvites.receiverId, id),
+		});
+		return invites;
+	} catch (error) {
+		console.log(error);
+		return [];
+	}
+};
+
+export const getUserGroups = async (id: string) => {
+	try {
+		const groupsList = await db.query.groups.findMany({
+			where: arrayContains(groups.members, [id]),
+		});
+		return groupsList;
+	} catch (error) {
+		console.log(error);
+		return [];
+	}
+};
+
+export const getGroupByName = async (name: string) => {
+	try {
+		const group = await db.query.groups.findFirst({
+			where: eq(groups.groupName, name),
+		});
+		return group;
+	} catch (error) {
+		console.log(error);
+		return null;
 	}
 };

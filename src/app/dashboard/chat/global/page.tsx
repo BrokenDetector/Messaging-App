@@ -35,7 +35,10 @@ const page = async () => {
 				sessionImg={currenUser?.image!}
 			/>
 
-			<GlobalChatInput chatId={chatId} />
+			<GlobalChatInput
+				chatId={chatId}
+				isGroup={false}
+			/>
 		</div>
 	);
 };

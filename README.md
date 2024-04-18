@@ -1,6 +1,6 @@
 # Messaging App
 
-Simple chat application with authentication and realtime-feature
+Chat application with authentication and realtime-feature
 
 ## Dashboard page
 
@@ -23,6 +23,7 @@ Simple chat application with authentication and realtime-feature
 - Responsive UI
 - Dark mode
 - Global chat
+- Groups
 
 ## Built with
 

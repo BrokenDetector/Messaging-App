@@ -7,7 +7,7 @@ const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: "Messaging App",
-	description: "Simple chat application with authentication and realtime-feature built with Next.js 14",
+	description: "Chat application with authentication and realtime-feature built with Next.js 14",
 };
 
 export default function RootLayout({

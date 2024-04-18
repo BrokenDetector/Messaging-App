@@ -9,9 +9,7 @@ export const RegisterSchema = z
 	.object({
 		email: z.string().email({ message: "Email is required" }),
 		name: z.string().min(1, { message: "Name is required" }),
-		password: z
-			.string()
-			.min(6, { message: "Minimum 6 characters required" }),
+		password: z.string().min(6, { message: "Minimum 6 characters required" }),
 		confirmPassword: z.string().min(1, { message: "Password must match." }),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
@@ -26,4 +24,14 @@ export const addFriendSchema = z.object({
 export const sendMessageSchema = z.object({
 	text: z.string().min(1, { message: "Text is required" }),
 	chatId: z.string().min(1, { message: "Chat Id is required" }),
+	isGroup: z.boolean().optional(),
+});
+
+export const createGroupSchema = z.object({
+	name: z.string().min(1, { message: "Group name is required" }),
+});
+
+export const groupInviteSchema = z.object({
+	email: z.string().email(),
+	groupName: z.string().min(1, { message: "Group name is required" }),
 });

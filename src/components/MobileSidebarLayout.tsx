@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Menu, UserPlus, X } from "lucide-react";
+import { Menu, SquarePlus, UserPlus, X } from "lucide-react";
 import { Session } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,15 +11,25 @@ import ChangeThemeButton from "./ChangeThemeButton";
 import FriendRequestSidebar from "./FriendRequestsSidebar";
 import SignOutButton from "./SignoutButton";
 import ChatsList from "./chats/ChatsList";
+import GroupList from "./groups/GroupList";
+import GroupInvitesSidebar from "./groups/GroupRequestsSidebar";
 import { Button, buttonVariants } from "./ui/button";
 
 interface MobileSidebarLayoutProps {
 	friends: User[];
 	session: Session;
 	unseenRequestCount: number;
+	unseenInvitesCount: number;
+	groups: Group[];
 }
 
-const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, unseenRequestCount }) => {
+const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({
+	friends,
+	session,
+	unseenRequestCount,
+	unseenInvitesCount,
+	groups,
+}) => {
 	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
 
@@ -118,6 +128,22 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 																friends={friends}
 															/>
 														</li>
+														{groups.length > 0 && (
+															<li>
+																<h1 className="text-xs font-semibold leading-6 text-muted-foreground">
+																	Your groups
+																</h1>
+																<ul
+																	role="list"
+																	className="mx-2 mt-2 space-y-1"
+																>
+																	<GroupList
+																		groups={groups}
+																		sessionId={session?.user.id!}
+																	/>
+																</ul>
+															</li>
+														)}
 
 														<li>
 															<h1 className="text-muted-foreground text-sm font-semibold leading-6">
@@ -129,10 +155,10 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 															>
 																<li>
 																	<Link
-																		href="/dashboard/add"
-																		className="flex hover:bg-secondary hover:text-primary group gap-x-3 rounded-md p-2 text-sm font-semibold"
+																		href="/dashboard/friend/add"
+																		className="flex hover:bg-secondary hover:text-primary group gap-3 rounded-md p-2 text-sm font-semibold"
 																	>
-																		<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary">
+																		<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary	">
 																			<UserPlus className="size-4" />
 																		</span>
 
@@ -143,6 +169,44 @@ const MobileSidebarLayout: FC<MobileSidebarLayoutProps> = ({ friends, session, u
 																	<FriendRequestSidebar
 																		sessionId={session?.user.id!}
 																		initialUnseenRequestCount={unseenRequestCount}
+																	/>
+																</li>
+															</ul>
+
+															<ul
+																role="list"
+																className="-mx-2 mt-2 space-y-1"
+															>
+																<li>
+																	<Link
+																		href="dashboard/group/create"
+																		className="flex hover:bg-secondary hover:text-primary group gap-3 rounded-md p-2 text-sm font-semibold"
+																	>
+																		<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary	">
+																			<SquarePlus className="size-4" />
+																		</span>
+
+																		<span className="truncate">Create group</span>
+																	</Link>
+																</li>
+																<li>
+																	<Link
+																		href="dashboard/group/create"
+																		className="flex hover:bg-secondary hover:text-primary group gap-3 rounded-md p-2 text-sm font-semibold"
+																	>
+																		<span className="text-muted-foreground group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-secondary	">
+																			<UserPlus className="size-4" />
+																		</span>
+
+																		<span className="truncate">
+																			Invite to join group
+																		</span>
+																	</Link>
+																</li>
+																<li>
+																	<GroupInvitesSidebar
+																		initialUnseenInvitesCount={unseenInvitesCount}
+																		sessionId={session?.user.id!}
 																	/>
 																</li>
 															</ul>

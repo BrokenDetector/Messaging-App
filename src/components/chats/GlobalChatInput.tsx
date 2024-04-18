@@ -8,25 +8,26 @@ import { Button } from "../ui/button";
 
 interface GlobalChatInputProps {
 	chatId: string;
+	isGroup: boolean;
 }
 
-const GlobalChatInput: FC<GlobalChatInputProps> = ({ chatId }) => {
+const GlobalChatInput: FC<GlobalChatInputProps> = ({ chatId, isGroup }) => {
 	const [input, setInput] = useState("");
 	const [isPending, startPending] = useTransition();
 	const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const submit = async () => {
 		if (!input) return;
+		if (isPending) return;
 
-		startPending(async () => {
-			try {
-				await sendGlobalMessage(input, chatId);
-			} catch (error) {
-				toast.error("Something went wrong. Please try again");
-			} finally {
+		startPending(() => {
+			sendGlobalMessage(input, chatId, isGroup).then((data) => {
+				if (data.error) {
+					return toast.error("Something went wrong. Please try again");
+				}
 				setInput("");
 				textAreaRef.current?.focus();
-			}
+			});
 		});
 	};
 

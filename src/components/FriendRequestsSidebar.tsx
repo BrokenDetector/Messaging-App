@@ -39,7 +39,7 @@ const FriendRequestSidebar: FC<FriendRequestSidebarProps> = ({ sessionId, initia
 
 	return (
 		<Link
-			href="/dashboard/requests"
+			href="/dashboard/friend/requests"
 			className="flex hover:bg-secondary hover:text-primary group gap-3 rounded-md p-2 text-sm leading-6 font-semibold"
 		>
 			<div className="text-muted-foreground border group-hover:border-primary group-hover:text-primary flex size-6 shrink-0 items-center justify-center rounded-lg text-[0.625rem] font-medium bg-secondary">

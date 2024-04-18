@@ -11,8 +11,6 @@ export function chatHrefConstructor(id1: string, id2: string) {
 }
 
 // Routes for middleware
-export const publicRoutes = ["/"];
-
 export const authRoutes = ["/auth/login", "/auth/register", "/auth/error"];
 
 export const apiAuthPrefix = "/api/auth";
