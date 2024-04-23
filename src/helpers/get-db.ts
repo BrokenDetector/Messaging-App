@@ -66,7 +66,12 @@ export const getChatMessages = async (chatId: string) => {
 	try {
 		const chat = await db.query.chats.findFirst({
 			where: eq(chats.id, chatId),
-			with: { messages: { with: { sender: true } } },
+			with: {
+				messages: {
+					with: { sender: true },
+					orderBy: (messages, { asc }) => [asc(messages.order)],
+				},
+			},
 		});
 		return chat?.messages;
 	} catch {

@@ -44,7 +44,7 @@ export const sendGlobalMessage = async (input: string, id: string, isgroup: bool
 	// Update messages on client
 	await pusherServer.trigger(`chat_${chatId}`, "incoming_message", { ...newMessage[0], sender: currentUser });
 
-	revalidatePath("/dashboard/chat/global");
+	revalidatePath(`/dashboard/chat/${chatId}`);
 
 	return { success: "success" };
 };

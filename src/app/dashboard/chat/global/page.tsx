@@ -11,7 +11,7 @@ interface ExtendedMessage extends Message {
 const page = async () => {
 	const chatId = "global";
 
-	const notReversedInitialMessages = await getChatMessages(chatId);
+	const notReversedInitialMessages = (await getChatMessages(chatId)) as ExtendedMessage[];
 	const initialMessages = notReversedInitialMessages ? notReversedInitialMessages.reverse() : [];
 
 	const session = await getServerSession(authOptions);
@@ -30,7 +30,7 @@ const page = async () => {
 
 			<GlobalMessages
 				chatId={chatId}
-				initialMessages={initialMessages as ExtendedMessage[]}
+				initialMessages={initialMessages}
 				sessionId={currenUser?.id!}
 				sessionImg={currenUser?.image!}
 			/>

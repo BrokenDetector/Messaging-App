@@ -78,7 +78,7 @@ const GlobalMessages: FC<GlobalMessagesProps> = ({ initialMessages, sessionId, s
 								<span className="inline-block ml-2">
 									{message.text}
 									<span className="ml-3  text-xs text-muted-foreground">
-										{format(message.timestamp!, "HH:MM")}
+										{format(message.timestamp!, "HH:mm")}
 									</span>
 								</span>
 							</span>
