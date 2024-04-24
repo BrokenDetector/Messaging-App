@@ -1,6 +1,6 @@
 import type { AdapterAccount } from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
-import { integer, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { integer, pgTable, primaryKey, serial, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const users = pgTable("user", {
 	id: uuid("id").primaryKey().defaultRandom(),
@@ -74,6 +74,7 @@ export const messages = pgTable("message", {
 		.references(() => users.id, { onDelete: "cascade" }),
 	text: text("text").notNull(),
 	timestamp: timestamp("timestamp", { mode: "string" }).defaultNow(),
+	order: serial("order"),
 });
 
 export const groups = pgTable("groups", {
